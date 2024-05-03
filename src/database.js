@@ -52,16 +52,12 @@ export class Database {
   }
 
   update(table, id, data) {
-    // Verifica se a tabela existe na base de dados
     if (this.#database[table]) {
-        // Encontra o índice da linha a ser atualizada
         const rowIndex = this.#database[table].findIndex(row => row.id === id);
         
         if (rowIndex > -1) {
-            // Atualiza a linha com os novos valores
             this.#database[table][rowIndex] = { id, ...data };
             
-            // Persiste os dados atualizados (se this.#persist for uma função)
             if (typeof this.#persist === 'function') {
                 this.#persist();
             }
